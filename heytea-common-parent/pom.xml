@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.heytea.common</groupId>
+    <artifactId>heytea-common-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatisPlus.version>3.0-gamma</mybatisPlus.version>
+
+        <maven.nexus.releases.url>http://172.16.11.252:8081/repository/maven-releases/</maven.nexus.releases.url>
+        <maven.nexus.snapshots.url>http://172.16.11.252:8081/repository/maven-snapshots/</maven.nexus.snapshots.url>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatisPlus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--maven上传配置 start-->
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <distributionManagement>
+                <repository>
+                    <id>releases</id>
+                    <name>Releases</name>
+                    <url>${maven.nexus.releases.url}</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshot</id>
+                    <name>Snapshot</name>
+                    <url>${maven.nexus.snapshots.url}</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+    <!--maven上传配置 end-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
